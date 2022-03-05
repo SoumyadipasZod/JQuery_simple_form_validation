@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <title>Hello, world!</title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+
+<!-- jquery cdn -->
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <form>
+        <div class="form-group">
+          <label for="usernames">User Name</label>
+          <input type="text" class="form-control" id="usernames" placeholder="Enter User Name" name="username" autocomplete="off">
+          <h5 id="usercheck"> </h5>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" name="pass">
+          <h5 id="passcheck"> </h5>
+        </div>
+        <div class="form-group">
+            <label for="conpassword">Confirm Password</label>
+            <input type="password" class="form-control" id="conpassword" placeholder="con Password" name="conpass">
+            <h5 id="conpasscheck"> </h5>
+          </div>
+        <button type="submit" id="submitbtn" class="btn btn-primary" value="Submit">Submit</button>
+      </form>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jquery -->
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#usercheck').hide();
+            $('#passcheck').hide();
+            $('#conpasscheck').hide();
+
+            var user_err =true;
+            var pass_err = true;
+            var conpass_err = true;
+
+            // vlidation for blank username
+            $('#usernames').keyup(function(){
+                username_check();
+            })
+            // here we are defining username_check() function
+            function username_check() {
+                var user_val = $('#usernames').val();
+
+                // using validation for blank username
+                if (user_val.length ==''){
+                    $('#usercheck').show();
+                    $('#usercheck').html('*** Please fill the username');
+                    $('#usercheck').focus();
+                    $('#usercheck').css('color', 'red')
+                    user_err = false;
+                    return false;
+                }else{
+                    $('#usercheck').hide();
+                }
+
+                // now we will check if username characters are between 3 & 10 characters
+                if((user_val.length <3) || (user_val.length > 10)){
+                    $('#usercheck').show();
+                    $('#usercheck').html('*** username must be between 3 & 10 characters');
+                    $('#usercheck').focus();
+                    $('#usercheck').css('color', 'red')
+                    user_err = false;
+                    return false;
+                }else{
+                    $('#usercheck').hide();
+                }
+            }
+
+            // validation for blank password
+            $('#password').keyup(function(){
+                password_check();
+            })
+
+            // now we are defining the function
+            function password_check(){
+                var passwrdstr = $('#password').val();
+
+                // using validation for blank password
+                if(passwrdstr.length == ''){
+                    $('#passcheck').show();
+                    $('#passcheck').html('*** password must be filled');
+                    $('#passcheck').focus();
+                    $('#passcheck').css('color', 'red');
+                    pass_err= false;
+                    return false;
+                }else{
+                    $('#passcheck').hide();
+                }
+
+                // validation for pssword must be between 3 nd 10
+                if((passwrdstr.length < 3) || (passwrdstr.length >10)){
+                    $('#passcheck').show();
+                    $('#passcheck').html('*** password must be between 3 and 10 characters');
+                    $('#passcheck').focus();
+                    $('#passcheck').css('color', 'red');
+                    pass_err= false;
+                    return false;
+                }else{
+                    $('#passcheck').hide();
+                }
+            }
+
+            // function for conpassword
+            $('#conpassword').keyup(function(){
+                con_passwrd();
+            });
+
+        // // difining the function
+        function con_passwrd(){
+            var conpass = $('#conpassword').val();
+            var passwrd = $('#password').val();
+            if(passwrd != conpass){
+                $('#conpasscheck').show();
+                $('#conpasscheck').html('***password is not matching');
+                $('#conpasscheck').focus();
+                $('#conpasscheck').css('color', 'red');
+                conpass_err = false;
+                return false;
+            }else{
+                $('#conpasscheck').hide();
+            }
+        }
+
+        // now when we are submitting we are rechecking
+        $('submitbtn').click(function(){
+            user_err =true;
+            pass_err = true;
+            conpass_err = true;
+
+            username_check();
+            password_check();
+            con_passwrd();
+
+            if((user_err == true) && (pass_err == true) && (conpass_err == true)){
+                return true;
+            }else{
+                return false;
+            }
+
+        });
+
+        });
+    </script>
+  </body>
+</html>
